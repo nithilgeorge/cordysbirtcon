@@ -1,0 +1,47 @@
+
+<JavaArchiveSource
+	xmlns:cws="http://schemas.cordys.com/cws/1.0"
+	type="com.cordys.cws.documenttypes.javaarchivesource.JavaArchiveSource"
+	RuntimeDocumentID="0026B997-2E20-11E2-E7A8-A303BD24F27B">
+	<DocumentID>0026B997-2E20-11E2-E7A8-A303BD24D27B</DocumentID>
+	<Name>BIRTConnector</Name>
+	<Description>BIRTConnector</Description>
+	<CreatedBy>senthil</CreatedBy>
+	<CreationDate>2012-12-03T12:40:53.007</CreationDate>
+	<Notes/>
+	<JarFileName>BIRTConnector</JarFileName>
+	<NamespacePrefix></NamespacePrefix>
+	<Dependencies>
+		<JavaArchiveReferenceDependency
+			type="com.cordys.cws.documenttypes.javaarchivesource.JavaArchiveReferenceDependency"
+			RuntimeDocumentID="0026B997-2E20-11E2-E7A8-A303BD1BF27B">
+			<DocumentID>0026B997-2E20-11E2-E7A8-A303BD1BD27B</DocumentID>
+			<Name>1</Name>
+			<Description>BIRT Runtime engine core</Description>
+			<CreatedBy>senthil</CreatedBy>
+			<CreationDate>2012-12-03T13:32:11.207</CreationDate>
+			<Notes/>
+			<DependsOnJAR>?CORDYS_INSTALL_DIR?\birt_engine\org.eclipse.birt.runtime_4.2.1.v20120918-1113.jar </DependsOnJAR>
+			<ISVPName></ISVPName>
+		</JavaArchiveReferenceDependency>
+		<JavaArchiveReferenceDependency
+			type="com.cordys.cws.documenttypes.javaarchivesource.JavaArchiveReferenceDependency"
+			RuntimeDocumentID="0026B997-2E20-11E2-E7A8-A303BD1A527B">
+			<DocumentID>0026B997-2E20-11E2-E7A8-A303BD1A327B</DocumentID>
+			<Name>Eclipse Internal Core</Name>
+			<Description>Eclipse Internal Core</Description>
+			<CreatedBy>senthil</CreatedBy>
+			<CreationDate>2012-12-03T13:34:50.822</CreationDate>
+			<Notes/>
+			<DependsOnJAR>?CORDYS_INSTALL_DIR?\birt_engine\org.eclipse.equinox.registry_3.5.200.v20120522-1841.jar </DependsOnJAR>
+			<ISVPName></ISVPName>
+		</JavaArchiveReferenceDependency>
+	</Dependencies>
+	<SourceFolder>
+		<uri
+			id="0026B997-2E20-11E2-E7A5-05B1832A727B"
+			path="BIRT Reporting Connector/Java/com"
+			type="com.cordys.cws.runtime.types.folder.StudioFolder"
+		/>
+	</SourceFolder>
+</JavaArchiveSource>

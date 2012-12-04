@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?><MessageBundle id="com.cordys.coe.birtconnector.Messages">
+    <Message id="starterror">
+        <MessageText>Error while starting the service container</MessageText>
+    </Message>
+    <Message id="requestinfo">
+        <MessageText>Request - ReportName : {0} ** OutputFormat : {1} ** Embeddable : {2} ** OutputToFile : {3} ** EncodeFile : {4} ** SAMLart: {5}</MessageText>
+    </Message>
+    <Message id="requestedmethod">
+        <MessageText>Requested Method Name : {0}</MessageText>
+    </Message>
+    <Message id="requestedfilenotfound">
+        <MessageText>Requested File {0} not found</MessageText>
+    </Message>
+    <Message id="unexpected">
+        <MessageText>Unexpected Exception</MessageText>
+    </Message>
+</MessageBundle>
