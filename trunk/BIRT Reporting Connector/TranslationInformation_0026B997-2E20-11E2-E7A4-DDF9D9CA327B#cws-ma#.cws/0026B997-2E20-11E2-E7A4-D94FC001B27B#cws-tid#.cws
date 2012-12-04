@@ -1,0 +1,24 @@
+
+<TextIdentifier
+	xmlns:cws="http://schemas.cordys.com/cws/1.0"
+	type="com.cordys.translation.TextIdentifier"
+	typeVersion="55890f21-u239-76j6-988a-92j7opq6ws09"
+	RuntimeDocumentID="0026B997-2E20-11E2-E7A4-D94FC001D27B">
+	<DocumentID>0026B997-2E20-11E2-E7A4-D94FC001B27B</DocumentID>
+	<Name>0026B997-2E20-11E2-E7A4-D94FC001B27B</Name>
+	<Description>BIRT Report Repository</Description>
+	<CreatedBy>senthil</CreatedBy>
+	<CreationDate>2012-12-03T09:02:31.542</CreationDate>
+	<Notes/>
+	<DefaultText>BIRT Report Repository</DefaultText>
+	<TranslationInformation>
+		<uri
+			id="0026B997-2E20-11E2-E7A4-DDF9D9C9527B"
+		/>
+	</TranslationInformation>
+	<Translations>
+		<uri
+			id="0026B997-2E20-11E2-E7A4-D94FC001F27B"
+		/>
+	</Translations>
+</TextIdentifier>

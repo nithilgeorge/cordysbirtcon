@@ -1,0 +1,314 @@
+
+<XFormDesigntime
+	xmlns:cws="http://schemas.cordys.com/cws/1.0"
+	type="com.cordys.xforms.XFormDesigntime"
+	typeVersion="002481EE-993D-11E2-E030-02C88B2B3B65"
+	RuntimeDocumentID="0026B997-2E20-11E2-E7C3-6EB71E3AB27B">
+	<DocumentID>0026B997-2E20-11E2-E7C3-6EB71E3A927B</DocumentID>
+	<Name>BIRTConfig</Name>
+	<Description>BIRTConfig</Description>
+	<CreatedBy>senthil</CreatedBy>
+	<CreationDate>2012-12-04T14:13:05.67</CreationDate>
+	<Notes/>
+	<XFormContent>
+		<xformhtml
+			xmlns="http://schemas.cordys.com/1.0/xform"
+			xmlns:xforms="http://www.w3.org/2002/xforms/cr"
+			xmlns:ev="http://www.w3.org/2001/xml-events"
+			xmlns:wcpforms="http://schemas.cordys.com/wcp/xforms"
+			xformsversion="2"
+			focusatstartup="true"
+			showNotify="true"
+			showError="true">
+			<xhead>
+				<script
+					src="/cordys/wcp/admin/behavior/applicationconnector.js"
+				/>
+			</xhead>
+			<xbody>
+				<xforms:group
+					wcpforms:layout="vertical"
+					id="xbody_group"
+					wcpforms:labelalign="ontop">
+					<xforms:input
+						wcpforms:designLibrary="cas.xforms.designerlibrary.controls.XFormsInput"
+						id="txtBirtRepository"
+						wcpforms:class="v_layout"
+						wcpforms:size="null 30.383333206176758px"
+						doEBIValidate="false"
+						wcpforms:displayformat="text"
+						wcpforms:dataType="string"
+						wcpforms:required="true">
+						<xforms:label
+							textIdentifier="0026B997-2E20-11E2-E7C3-6EB71E38927B"
+							wcpforms:class="v_label">BIRT Report Repository Directory *</xforms:label>
+						<messages>
+							<Message
+								xmlns=""
+								id="message.required"
+								type="ui"
+								description="   Required  "
+								constraint="required">
+								<MessageText>Please enter BIRT Report repository directory</MessageText>
+							</Message>
+						</messages>
+						<xforms:action
+							ev:event="xforms-value-changed">
+							<xforms:txtBirtRepository_Change/>
+						</xforms:action>
+					</xforms:input>
+				</xforms:group>
+			</xbody>
+			<xformsscript>
+				<![CDATA[var formLoaded = false;
+
+function trimSpace(str)
+{
+     return str.replace(/^\s+/g, '').replace(/\s+$/g, '');
+}
+// validates the user input
+function validate()
+{
+    if(trimSpace(txtBirtRepository.value) == "")
+     {
+            application.showError(translate("Please enter BIRT Report repository directory"));
+            return false
+     }
+
+    return true;
+}
+
+// This function fills in the xml
+function createConnectorConfiguration(configurationNode)
+{
+    if (! validate()) return false;
+	addXMLNode(configurationNode, "birt_repository", txtBirtRepository.value);
+
+    return true;
+}
+
+function addXMLNode(parentNode, nodeName, nodeText)
+{
+    var newNode = cordys.createElementNS(parentNode.ownerDocument, "", nodeName); 
+    if (nodeText)
+        cordys.setTextContent(newNode, nodeText);
+    cordys.appendXMLNode(newNode, parentNode);
+}
+
+
+function initializeLibrary()
+{
+    if(window.parent.opener)
+        application.organization = window.parent.opener.window.application.organization;
+
+	initialize();
+}
+
+// This function fills in the values
+function fillInPropertyScreen(configurationNode)
+{
+	txtBirtRepository.value = getNodeText(configurationNode,"//birt_repository","");
+}
+
+
+// returns the text value of the node selected using the searchPath
+function getNodeText(node, searchPath, defaultValue)
+{
+    return cordys.getNodeText(node, searchPath, "");
+}
+
+function Form_InitDone(eventObject)
+{
+    initializeLibrary();
+    formLoaded = true;
+}
+
+function raiseConfigurationChanges()
+{
+    if(formLoaded && !application.container.isWizardContainer)
+    {
+	system.windows.servicepropertiesPage_SystemResourceManager.configurationChanged();
+    }
+}
+function txtBirtRepository_Change(eventObject)
+{
+    raiseConfigurationChanges();
+}]]>
+			</xformsscript>
+			<xforms:action
+				ev:event="xforms-initialize-done">
+				<xforms:Form_InitDone/>
+			</xforms:action>
+		</xformhtml>
+	</XFormContent>
+	<XFormWSDL/>
+	<automatic>false</automatic>
+	<caption></caption>
+	<data/>
+	<height></height>
+	<isInternal>false</isInternal>
+	<isLegacy>false</isLegacy>
+	<left></left>
+	<mode>full</mode>
+	<parameters/>
+	<qualifiedclassname></qualifiedclassname>
+	<showOnStartPage>false</showOnStartPage>
+	<taskDescription>BIRTConfig</taskDescription>
+	<taskName>BIRTConfig</taskName>
+	<title>true</title>
+	<top></top>
+	<type>XForm</type>
+	<width></width>
+	<CompositeControls/>
+	<Htms/>
+	<Images/>
+	<InstanceSchemaFragments/>
+	<Javascripts/>
+	<ReferredXForms/>
+	<Representations/>
+	<StyleSheets/>
+	<TranslatableApplications/>
+	<TranslatableName>
+		<TranslatableText
+			type="com.cordys.translation.TranslatableText"
+			RuntimeDocumentID="0026B997-2E20-11E2-E7C3-6EB71E37727B">
+			<DocumentID>0026B997-2E20-11E2-E7C3-6EB71E37527B</DocumentID>
+			<Name>0026B997-2E20-11E2-E7C3-6EB71E37527B</Name>
+			<Description>0026B997-2E20-11E2-E7C3-6EB71E37527B</Description>
+			<CreatedBy>senthil</CreatedBy>
+			<CreationDate>2012-12-04T14:13:05.669</CreationDate>
+			<Notes/>
+			<Identifier>
+				<uri
+					id="0026B997-2E20-11E2-E7C3-6EB71E37927B"
+				/>
+			</Identifier>
+		</TranslatableText>
+	</TranslatableName>
+	<TranslatableUITexts>
+		<TranslatableUIText
+			type="com.cordys.xforms.TranslatableUIText"
+			RuntimeDocumentID="0026B997-2E20-11E2-E7C3-6EB71E39327B">
+			<DocumentID>0026B997-2E20-11E2-E7C3-6EB71E39127B</DocumentID>
+			<Name>0026B997-2E20-11E2-E7C3-6EB71E39127B</Name>
+			<Description>0026B997-2E20-11E2-E7C3-6EB71E39127B</Description>
+			<CreatedBy>senthil</CreatedBy>
+			<CreationDate>2012-12-04T14:13:05.669</CreationDate>
+			<Notes/>
+			<UIRef>txtBirtRepository</UIRef>
+			<TooltipText>
+				<TranslatableText
+					type="com.cordys.translation.TranslatableText"
+					RuntimeDocumentID="0026B997-2E20-11E2-E7C3-6EB71E35727B">
+					<DocumentID>0026B997-2E20-11E2-E7C3-6EB71E35527B</DocumentID>
+					<Name>0026B997-2E20-11E2-E7C3-6EB71E35527B</Name>
+					<Description>0026B997-2E20-11E2-E7C3-6EB71E35527B</Description>
+					<CreatedBy>senthil</CreatedBy>
+					<CreationDate>2012-12-04T14:18:27.315</CreationDate>
+					<Notes/>
+					<Identifier>
+						<uri
+							id="0026B997-2E20-11E2-E7AA-AA473E7A327B"
+						/>
+					</Identifier>
+				</TranslatableText>
+			</TooltipText>
+			<TranslatableName>
+				<TranslatableText
+					type="com.cordys.translation.TranslatableText"
+					RuntimeDocumentID="0026B997-2E20-11E2-E7C3-6EB71E38727B">
+					<DocumentID>0026B997-2E20-11E2-E7C3-6EB71E38527B</DocumentID>
+					<Name>0026B997-2E20-11E2-E7C3-6EB71E38527B</Name>
+					<Description>0026B997-2E20-11E2-E7C3-6EB71E38527B</Description>
+					<CreatedBy>senthil</CreatedBy>
+					<CreationDate>2012-12-04T14:13:05.67</CreationDate>
+					<Notes/>
+					<Identifier>
+						<uri
+							id="0026B997-2E20-11E2-E7C3-6EB71E38927B"
+						/>
+					</Identifier>
+				</TranslatableText>
+			</TranslatableName>
+			<XForm>
+				<uri
+					id="0026B997-2E20-11E2-E7C3-6EB71E3A927B"
+				/>
+			</XForm>
+		</TranslatableUIText>
+		<TranslatableUIText
+			type="com.cordys.xforms.TranslatableUIText"
+			RuntimeDocumentID="0026B997-2E20-11E2-E7C3-6EB71E34F27B">
+			<DocumentID>0026B997-2E20-11E2-E7C3-6EB71E34D27B</DocumentID>
+			<Name>0026B997-2E20-11E2-E7C3-6EB71E34D27B</Name>
+			<Description>0026B997-2E20-11E2-E7C3-6EB71E34D27B</Description>
+			<CreatedBy>senthil</CreatedBy>
+			<CreationDate>2012-12-04T14:18:27.315</CreationDate>
+			<Notes/>
+			<UIRef>0026B997-2E20-11E2-E7C3-6EB71E34D27B</UIRef>
+			<TooltipText/>
+			<TranslatableName>
+				<TranslatableText
+					type="com.cordys.translation.TranslatableText"
+					RuntimeDocumentID="0026B997-2E20-11E2-E7C3-6EB71E35327B">
+					<DocumentID>0026B997-2E20-11E2-E7C3-6EB71E35127B</DocumentID>
+					<Name>0026B997-2E20-11E2-E7C3-6EB71E35127B</Name>
+					<Description>0026B997-2E20-11E2-E7C3-6EB71E35127B</Description>
+					<CreatedBy>senthil</CreatedBy>
+					<CreationDate>2012-12-04T14:18:27.315</CreationDate>
+					<Notes/>
+					<Identifier>
+						<uri
+							id="0026B997-2E20-11E2-E7AA-AA473E7A327B"
+						/>
+					</Identifier>
+				</TranslatableText>
+			</TranslatableName>
+			<XForm>
+				<uri
+					id="0026B997-2E20-11E2-E7C3-6EB71E3A927B"
+				/>
+			</XForm>
+		</TranslatableUIText>
+	</TranslatableUITexts>
+	<Webservices/>
+	<aclFragments/>
+	<deliveryModels/>
+	<image/>
+	<input/>
+	<messageParts>
+		<MessagePart
+			type="com.cordys.task.MessagePart"
+			RuntimeDocumentID="0026B997-2E20-11E2-E7C3-6EB71E38327B">
+			<DocumentID>0026B997-2E20-11E2-E7C3-6EB71E38127B</DocumentID>
+			<Name>freeformcontrols</Name>
+			<Description>freeformcontrols</Description>
+			<CreatedBy>senthil</CreatedBy>
+			<CreationDate>2012-12-04T14:13:05.671</CreationDate>
+			<Notes/>
+			<isRefExists>false</isRefExists>
+			<namespace>http://schemas.cordys.com/1.0/xforms/processapi</namespace>
+			<operationName>freeformcontrols</operationName>
+		</MessagePart>
+	</messageParts>
+	<messages>
+		<TranslatableText
+			type="com.cordys.translation.TranslatableText"
+			RuntimeDocumentID="0026B997-2E20-11E2-E7C3-6EB71E34927B">
+			<DocumentID>0026B997-2E20-11E2-E7C3-6EB71E34727B</DocumentID>
+			<Name>0026B997-2E20-11E2-E7C3-6EB71E34727B</Name>
+			<Description>0026B997-2E20-11E2-E7C3-6EB71E34727B</Description>
+			<CreatedBy>senthil</CreatedBy>
+			<CreationDate>2012-12-04T14:18:51.496</CreationDate>
+			<Notes/>
+			<Identifier>
+				<uri
+					id="0026B997-2E20-11E2-E7AA-33F54FD0B27B"
+				/>
+			</Identifier>
+		</TranslatableText>
+	</messages>
+	<output/>
+	<tagsContainer/>
+	<taskParts/>
+</XFormDesigntime>
