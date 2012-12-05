@@ -1,0 +1,12 @@
+#summary One-sentence summary of this page.
+#labels Featured
+
+= Change Log =
+
+Cordys BIRT Reporting connector change log
+
+= Version 2.0 =
+
+  * Revamped the connector for BOP 4.2
+  * Rewritten with BIRT Runtime version 4.2, this no longer requires the engine home directory to be set. It is removed from service container configuration page. 
+  * Now the BIRT Connector need not be in the same organization as the web service.
