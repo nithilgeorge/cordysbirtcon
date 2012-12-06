@@ -1,0 +1,160 @@
+
+<!DOCTYPE HTML PUBLIC"-//W3C//DTD HTML 4.01 Transitional//EN""http://www.w3.org/TR/html4/loose.dtd">
+
+<html onapplicationready="initialize()" id="applicationWindow">
+<head>
+<script src="/cordys/wcp/application.js"></script>
+<script type="cordys/xml" id="newApplication">
+    <Application>
+        <id>drilldown</id>
+        <description>Drill down report</description>
+        <caption>Drill down report</caption>
+        <url></url>
+        <frame>myFrame</frame>
+    </Application>
+</script>
+<script language="JavaScript" type="text/javascript">
+
+	var xmlDoc = getXMLDOMObject();
+	var currentFrame = "viewhtmlFrame";
+	var SAMLart = "";
+
+	function getXMLDOMObject()
+	{
+		var xmldom = null;
+		if(window.DOMParser)
+		{
+			 xmldom=new DOMParser();
+		}
+		else
+		{
+			xmldom = new ActiveXObject("Microsoft.XMLDOM");
+		}
+		return xmldom;
+	}
+
+	function initialize()
+	{
+		var location = window.location.href;
+
+		var queryString = location.substring(location.indexOf('?')+1);
+		var queryParams = queryString.split('&');
+		var queryParamsArray;
+		var paramsList = "";
+
+		var reportNodes = "";
+		var reportParams = "";
+
+		for(var i=0;i<queryParams.length;i++)
+		{
+			queryParamsArray = queryParams[i].split('=');
+			dataName = queryParamsArray[0];
+			dataValue = queryParamsArray[1];
+
+			if( dataName == "SAMLart" )
+			{
+				SAMLart = dataValue;
+			}
+			else
+			if( dataName=="org" )
+			{
+				userOrg = system.getUser().defaultOrganization;
+				bdiToolbars.organization = "o="+dataValue+userOrg.substring(userOrg.indexOf(",cn"));
+			}
+			else
+			if( dataName.indexOf("p_")==0)
+			{
+				reportParams = reportParams +  "<PARAM><Name>"+dataName.substring(2)+"</Name><Value>"+decodeURI(dataValue)+"</Value></PARAM>";
+			}
+			else
+			{	reportNodes = reportNodes + "<"+dataName+">"+  dataValue +"</"+dataName+">";
+			}
+		}
+
+		var soapEnv = "<SOAP:Envelope xmlns:SOAP=\"http://schemas.xmlsoap.org/soap/envelope/\"><SOAP:Body>";
+		soapEnv = soapEnv + "<GetReport xmlns=\"http://schemas.cordys.com/BIRT/\">";
+		soapEnv = soapEnv + reportNodes;
+		soapEnv = soapEnv + "<PARAMS>"+ reportParams + "</PARAMS>";
+		soapEnv = soapEnv + "</GetReport></SOAP:Body></SOAP:Envelope>";
+		xmlDoc = cordys.loadXMLDocument(soapEnv);
+		bdiToolbars.clear();
+		bdiToolbars.request = xmlDoc;
+		bdiToolbars.reset();
+	}
+
+
+function onRequestHandler()
+{
+	allCookies = document.cookie.split(';');
+	for(var i=0;i<allCookies.length;i++)
+	{
+		if(allCookies[i].indexOf("_SAMLart=")!=-1)
+			SAMLart = allCookies[i].split('=')[1];
+	}
+
+	var request = window.application.event.requestXML;
+	var methodNode = cordys.selectXMLNode(request, ".//*[local-name()='GetReport']");
+	if(methodNode)
+		cordys.setXMLAttribute(methodNode, "", "SAMLart",SAMLart)
+		
+}
+
+function fillReport()
+{
+	toggle('infoRow');
+	msgLable.innerText = "Report generated succesfully. This window can be closed.";
+
+	var response = application.event.response;
+	var reportData = cordys.selectXMLNode(response, ".//*[local-name()='REPORT_CONTENT']");
+	if (reportData)
+	{
+		window.frames[currentFrame].document.clear();
+		window.frames[currentFrame].document.close();
+		window.frames[currentFrame].document.write(cordys.getTextContent(reportData));
+		window.frames[currentFrame].document.close();
+	}
+	else
+	{
+		var reportLink = cordys.selectXMLNode(response, ".//*[local-name()='HyperLink']");
+		if (reportLink)
+		{
+			cordys.setNodeText(newApplication.XMLDocument.documentElement, ".//*[local-name()='url']", cordys.getTextContent(reportLink));
+			application.select(newApplication.XMLDocument.documentElement);
+		}
+	}
+}
+
+// to handle the soapfault when there is no records in the database for the given query.
+function handlesoapfault()
+{
+	toggle('infoRow');
+	toggle('reportRow');
+	window.application.event.showError = false
+	msgLable.innerHTML = "Report generation failed.<BR/>Error :"+ cordys.getNodeText(window.application.event.response, ".//*[local-name()='faultstring']")+"<BR/>Refresh the page to retry.";
+	msgLable.style.color = "red";
+}
+
+function toggle(row) {
+  if (isNaN(row)) row = document.getElementById(row); // id passed
+  else row = document.getElementById('table1').rows[row]; // idx passed
+  if (row) row.style.display=(row.style.display=='none')?'':'none';
+  return false;
+}
+
+</script>
+</head>
+
+<body>
+<div cordysType="wcp.library.data.BusDataIsland " id="bdiToolbars" async="false" automatic="false" onrequest="onRequestHandler()" onresponse="fillReport()"	onsoapfault="handlesoapfault()"></div>
+<table width="100%" height="100%" align="center" valign=center>
+	<tr align="center" id='infoRow'>
+		<td align="center" valign="middle">
+			<label id="msgLable" style="padding-left:5px;height:33px;vertical-align:middle;" >Report generation in progress. Please wait...</label>
+		</td>
+	</tr>
+	<tr id='reportRow'>
+		<iframe class="container" id="myFrame" style="width:100%;height:100%"></iframe>
+	</tr>
+</table>
+</body>
+</html>

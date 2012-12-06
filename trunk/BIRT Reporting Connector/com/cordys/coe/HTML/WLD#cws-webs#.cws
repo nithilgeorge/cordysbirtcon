@@ -1,0 +1,20 @@
+
+<WebSource
+	xmlns:cws="http://schemas.cordys.com/cws/1.0"
+	type="com.cordys.cws.documenttypes.websource.WebSource"
+	RuntimeDocumentID="0026B997-2E20-11E2-E7EE-BC049DEE17CF">
+	<DocumentID>0026B997-2E20-11E2-E7EE-BC049DEDF7CF</DocumentID>
+	<Name>WLD</Name>
+	<Description>WLD</Description>
+	<CreatedBy>senthil</CreatedBy>
+	<CreationDate>2012-12-06T11:08:41.805</CreationDate>
+	<Notes/>
+	<NamespacePrefix></NamespacePrefix>
+	<SourceFolder>
+		<uri
+			id="0026B997-2E20-11E2-E7EE-BC049DF077CF"
+			path="BIRT Reporting Connector/com/cordys/coe/HTML"
+			type="com.cordys.cws.runtime.types.folder.StudioFolder"
+		/>
+	</SourceFolder>
+</WebSource>
