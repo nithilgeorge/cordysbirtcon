@@ -189,7 +189,7 @@ public class BIRTTransaction implements ApplicationTransaction {
 
 				if (Boolean.parseBoolean(outputToFile)) {
 					Node.createCDataElement("HyperLink",
-							"/home/" + reqOrg.split(",")[0].split("=")[1] + "/birt/reports/reportFiles/" + fileName,
+							"/birt/reports/reportFiles/" + fileName,
 							responseNode);
 					Node.createCDataElement("PhysicalLink",
 							reportOutputFile, responseNode);
