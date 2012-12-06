@@ -10,8 +10,6 @@ import java.util.logging.Level;
 
 import org.eclipse.birt.core.framework.Platform;
 import org.eclipse.birt.report.engine.api.EngineConfig;
-import org.eclipse.birt.report.engine.api.HTMLRenderOption;
-import org.eclipse.birt.report.engine.api.HTMLServerImageHandler;
 import org.eclipse.birt.report.engine.api.IReportEngine;
 import org.eclipse.birt.report.engine.api.IReportEngineFactory;
 import org.eclipse.core.internal.registry.RegistryProviderFactory;
@@ -38,7 +36,6 @@ public class BIRTConnector extends ApplicationConnector {
 	String report_web_folder = "";
 	static String cordys_server = "";
 
-	@SuppressWarnings("unchecked")
 	public void open(Processor processor) {
 		if (birtLogger.isDebugEnabled()) {
 			birtLogger.debug("Processor start");
@@ -49,13 +46,6 @@ public class BIRTConnector extends ApplicationConnector {
 			EngineConfig config = new EngineConfig();
 
 			config.setLogConfig(this.engine_log_folder, Level.FINE);
-			
-			HTMLRenderOption renderOption = new HTMLRenderOption();
-		    HTMLServerImageHandler imageHandler = new HTMLServerImageHandler();
-		    renderOption.setImageHandler(imageHandler);
-		    renderOption.setEmbeddable(true);
-		    config.getEmitterConfigs().put("html", renderOption);
-
 			Platform.startup(config);
 			
 			IReportEngineFactory factory = (IReportEngineFactory) Platform
@@ -113,7 +103,7 @@ public class BIRTConnector extends ApplicationConnector {
 	}
 
 	private void SetupReportFolders() {
-		this.report_web_folder = (EIBProperties.getInstallDir() + "/web/birt/reports/");
+		this.report_web_folder = (EIBProperties.getWebDir() + "/birt/reports/");
 	}
 
 	public IReportEngine getEngine() {

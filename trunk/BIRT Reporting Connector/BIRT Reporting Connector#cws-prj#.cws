@@ -17,14 +17,14 @@
 			typeVersion="00215A62-2E6A-11E1-FCAC-F71EBE253749"
 			RuntimeDocumentID="0026B997-2E20-11E2-E7A4-DDF9D9CB527B">
 			<DocumentID>0026B997-2E20-11E2-E7A4-DDF9D9CB327B</DocumentID>
-			<Name>Cordys CoE India BIRT Reporting Connector</Name>
-			<Description>Cordys CoE India BIRT Reporting Connector</Description>
+			<Name>Cordys BIRT Reporting Connector</Name>
+			<Description>Cordys BIRT Reporting Connector</Description>
 			<CreatedBy>senthil</CreatedBy>
 			<CreationDate>2012-12-03T08:53:51.434</CreationDate>
 			<Notes/>
-			<BuildNumber>0</BuildNumber>
-			<ISVPackageFileName>Cordys CoE India BIRT Reporting Connector 1.0.0</ISVPackageFileName>
-			<ISVPackageOwner>Cordys CoE India</ISVPackageOwner>
+			<BuildNumber>2</BuildNumber>
+			<ISVPackageFileName>Cordys BIRT Reporting Connector 2.0.2</ISVPackageFileName>
+			<ISVPackageOwner>Cordys</ISVPackageOwner>
 			<PackageForRuntime>true</PackageForRuntime>
 			<PostISVLoaderInformation/>
 			<Product>BIRT Reporting Connector</Product>
@@ -33,7 +33,7 @@
 				cws:type="collection">
 				<cws:item>SYSTEM</cws:item>
 			</SupportedDeploymentSpaces>
-			<Version>1.0</Version>
+			<Version>2.0</Version>
 			<LicenseAgreement/>
 			<ThirdPartyAgreement/>
 		</ISVPackageInfo>
