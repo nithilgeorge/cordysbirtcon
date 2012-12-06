@@ -4,20 +4,19 @@ import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.HashMap;
 
 import org.eclipse.birt.report.engine.api.EngineException;
 import org.eclipse.birt.report.engine.api.HTMLRenderOption;
+import org.eclipse.birt.report.engine.api.HTMLServerImageHandler;
 import org.eclipse.birt.report.engine.api.IGetParameterDefinitionTask;
 import org.eclipse.birt.report.engine.api.IReportEngine;
 import org.eclipse.birt.report.engine.api.IReportRunnable;
 import org.eclipse.birt.report.engine.api.IRunAndRenderTask;
-import org.eclipse.birt.report.engine.api.PDFRenderOption;
-import org.eclipse.birt.report.engine.api.RenderOption;
 
 import sun.misc.BASE64Encoder;
 
 import com.cordys.coe.birtconnector.Messages;
+import com.cordys.util.InstallationEnvironment;
 import com.eibus.soap.ApplicationTransaction;
 import com.eibus.soap.BodyBlock;
 import com.eibus.soap.fault.Fault;
@@ -57,6 +56,13 @@ public class BIRTTransaction implements ApplicationTransaction {
 		boolean returnValue = true;
 		String methodName = requestBlock.getMethodDefinition().getMethodName();
 		String reqOrg = requestBlock.getSOAPTransaction().getIdentity().getUserOrganization();
+		File reportWebDir = InstallationEnvironment.getAbsoluteOrganizationWebRoot(reqOrg);
+		if (!reportWebDir.exists()) {
+			if (!reportWebDir.mkdirs()) {
+				responseBlock.createSOAPFault(Fault.Codes.SERVER, Messages.unexpected);
+				return true;
+			}
+		}
 		if (this.birtLogger.isInfoEnabled()) {
 			this.birtLogger.info(Messages.requestedMethod, methodName);
 		}
@@ -156,33 +162,24 @@ public class BIRTTransaction implements ApplicationTransaction {
 				}
 				task.setParameterValue("SOAP_END_POINT", soapEndPointValue);
 
-				HTMLRenderOption htmlRenderOption = new HTMLRenderOption();
-				htmlRenderOption.setBaseImageURL("/cordys/birt/reports/image");
-				htmlRenderOption.setImageDirectory(this.connector
-						.getReport_web_folder() + "image");
-				htmlRenderOption.setSupportedImageFormats("PNG;JPG;BMP");
-
-				PDFRenderOption pdfRenderOption = new PDFRenderOption();
-				pdfRenderOption.setBaseURL("/cordys/birt/reports/reportFiles");
-				pdfRenderOption.setSupportedImageFormats("PNG;JPG;BMP");
-
-				HashMap<String, RenderOption> contextMap = new HashMap<String, RenderOption>();
-				contextMap.put("HTML_RENDER_CONTEXT", htmlRenderOption);
-				contextMap.put("PDF_RENDER_CONTEXT", pdfRenderOption);
-				task.setAppContext(contextMap);
-
 				HTMLRenderOption options = new HTMLRenderOption();
 				options.setEmbeddable(Boolean.parseBoolean(embeddable));
+				options.setBaseImageURL("../images");
+				options.setImageDirectory(reportWebDir.getAbsolutePath() + "/birt/reports/images");
+				options.setSupportedImageFormats("PNG;JPG;BMP");
+				options.setImageHandler(new HTMLServerImageHandler());
+
 				ByteArrayOutputStream byteOutput = new ByteArrayOutputStream();
 
 				options.setActionHandler(new HyperlinkHandler(outputFormat,
 						reportFile, embeddable, outputToFile, encodeFile,
 						SAMLart, reqOrg));
 				String fileName = Long.toString(System.nanoTime());
+				fileName = fileName + "." + outputFormat;
+				final String reportOutputFile = reportWebDir.getAbsolutePath()
+						+ "/birt/reports/reportFiles/" + fileName;
 				if (Boolean.parseBoolean(outputToFile)) {
-					fileName = fileName + "." + outputFormat;
-					options.setOutputFileName(this.connector
-							.getReport_web_folder() + "reportFiles/" + fileName);
+					options.setOutputFileName(reportOutputFile);
 				} else {
 					options.setOutputStream(byteOutput);
 				}
@@ -192,11 +189,10 @@ public class BIRTTransaction implements ApplicationTransaction {
 
 				if (Boolean.parseBoolean(outputToFile)) {
 					Node.createCDataElement("HyperLink",
-							"/cordys/birt/reports/reportFiles/" + fileName,
+							"/home/" + reqOrg.split(",")[0].split("=")[1] + "/birt/reports/reportFiles/" + fileName,
 							responseNode);
 					Node.createCDataElement("PhysicalLink",
-							this.connector.getReport_web_folder()
-									+ "reportFiles/" + fileName, responseNode);
+							reportOutputFile, responseNode);
 				} else {
 					Node.setDataElement(
 							responseNode,
