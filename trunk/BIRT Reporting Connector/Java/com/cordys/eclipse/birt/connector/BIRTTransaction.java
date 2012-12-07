@@ -1,5 +1,11 @@
 package com.cordys.eclipse.birt.connector;
 
+/**
+ * @author Senthil kumar Murugesan
+ * 
+ */
+
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.text.ParseException;
