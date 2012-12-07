@@ -22,8 +22,8 @@
 			<CreatedBy>senthil</CreatedBy>
 			<CreationDate>2012-12-03T08:53:51.434</CreationDate>
 			<Notes/>
-			<BuildNumber>7</BuildNumber>
-			<ISVPackageFileName>Cordys BIRT Reporting Connector 2.0.7</ISVPackageFileName>
+			<BuildNumber>8</BuildNumber>
+			<ISVPackageFileName>Cordys BIRT Reporting Connector 2.0.8</ISVPackageFileName>
 			<ISVPackageOwner>Cordys</ISVPackageOwner>
 			<PackageForRuntime>true</PackageForRuntime>
 			<PostISVLoaderInformation/>

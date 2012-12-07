@@ -1,5 +1,11 @@
 package com.cordys.eclipse.birt.connector;
 
+/**
+ * @author Senthil kumar Murugesan
+ * 
+ */
+
+
 import com.eibus.util.logger.CordysLogger;
 import java.io.File;
 import java.util.ArrayList;

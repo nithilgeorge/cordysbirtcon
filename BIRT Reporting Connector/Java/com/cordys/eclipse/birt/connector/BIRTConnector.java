@@ -33,7 +33,6 @@ public class BIRTConnector extends ApplicationConnector {
 	String engine_home = "";
 	String birt_repository = "";
 	String engine_log_folder = "";
-	String report_web_folder = "";
 	static String cordys_server = "";
 
 	public void open(Processor processor) {
@@ -42,7 +41,6 @@ public class BIRTConnector extends ApplicationConnector {
 		}
 		try {
 			ReadConfiguration(processor);
-			SetupReportFolders();
 			EngineConfig config = new EngineConfig();
 
 			config.setLogConfig(this.engine_log_folder, Level.FINE);
@@ -102,10 +100,6 @@ public class BIRTConnector extends ApplicationConnector {
 				+ EIBProperties.getProperty("web.server.portnumber");
 	}
 
-	private void SetupReportFolders() {
-		this.report_web_folder = (EIBProperties.getWebDir() + "/birt/reports/");
-	}
-
 	public IReportEngine getEngine() {
 		return this.engine;
 	}
@@ -113,14 +107,5 @@ public class BIRTConnector extends ApplicationConnector {
 	public void setEngine(IReportEngine engine) {
 		this.engine = engine;
 	}
-
-	public String getReport_web_folder() {
-		return this.report_web_folder;
-	}
-
-	public void setReport_web_folder(String report_web_folder) {
-		this.report_web_folder = report_web_folder;
-	}
-	
 	
 }
