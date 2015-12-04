@@ -1,0 +1,1 @@
+The Cordys BIRT Reporting Connector provides the necessary integration & services from Cordys, to execute BIRT Reports & get the output back to Cordys.
